@@ -1,0 +1,31 @@
+name: Build IslamTube APK
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Create Android Project
+      run: |
+        mkdir -p app/src/main/java/com/farukh/islamtube
+        echo 'rootProject.name="IslamTube"' > settings.gradle
+        echo 'plugins { id "com.android.application" } android { namespace "com.farukh.islamtube" compileSdk 34 defaultConfig { applicationId "com.farukh.islamtube" minSdk 21 targetSdk 34 }' > build.gradle
+        echo '<?xml version="1.0"?><manifest package="com.farukh.islamtube"><application android:label="IslamTube"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>' > app/src/main/AndroidManifest.xml
+        echo 'package com.farukh.islamtube; import android.app.Activity; import android.os.Bundle; import android.webkit.WebView; public class MainActivity extends Activity { protected void onCreate(Bundle b){super.onCreate(b); WebView w=new WebView(this); w.loadUrl("https://farukh100ali-bot.github.io/IslamTube/"); setContentView(w);}}' > app/src/main/java/com/farukh/islamtube/MainActivity.kt
+
+    - name: Build APK
+      run: gradle assembleDebug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: IslamTube-APK
+        path: '**/*.apk'
