@@ -1,0 +1,61 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Initialize Project Structure if Missing
+        run: |
+          if [ ! -f "settings.gradle" ]; then
+            echo "pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }" > settings.gradle
+            echo "dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }" >> settings.gradle
+            echo "rootProject.name = 'IslamTube'" >> settings.gradle
+            echo "include ':app'" >> settings.gradle
+          fi
+
+          if [ ! -f "build.gradle" ]; then
+            echo "plugins { id 'com.android.application' version '8.1.1' apply false }" > build.gradle
+          fi
+
+          if [ ! -d "app" ]; then
+            mkdir -p app/src/main/res/layout
+            mkdir -p app/src/main/java/com/example/islamtube
+          fi
+
+          if [ ! -f "app/build.gradle" ]; then
+            echo "plugins { id 'com.android.application' }" > app/build.gradle
+            echo "android { namespace 'com.example.islamtube'; compileSdk 33; defaultConfig { applicationId 'com.example.islamtube'; minSdk 21; targetSdk 33; versionCode 1; versionName '1.0' } }" >> app/build.gradle
+          fi
+
+          if [ ! -f "app/src/main/AndroidManifest.xml" ]; then
+            echo '<manifest xmlns:android="http://schemas.android.com/apk/res/android"><application android:label="IslamTube"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>' > app/src/main/AndroidManifest.xml
+          fi
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.2'
+
+      - name: Build APK
+        run: gradle assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: IslamTube-App
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
