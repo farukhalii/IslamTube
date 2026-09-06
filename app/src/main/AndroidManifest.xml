@@ -2,9 +2,9 @@
     <application
         android:label="IslamTube"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- Direct Main Launcher -->
+        <!-- Main Launcher -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
