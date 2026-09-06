@@ -4,7 +4,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
-        <!-- Splash Screen Launcher Activity -->
+        <!-- Splash Screen Launcher -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -15,11 +15,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Main Home Screen -->
+        <!-- Main Screen -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
     </application>
 </manifest>
-
