@@ -4,7 +4,5 @@
         <item name="colorPrimary">#2ECC71</item>
         <item name="colorPrimaryDark">#0A0F0D</item>
         <item name="colorAccent">#2ECC71</item>
-        <item name="android:windowBackground">#0A0F0D</item>
     </style>
 </resources>
-
