@@ -18,4 +18,3 @@ class SplashActivity : Activity() {
         }, 2000)
     }
 }
-
