@@ -4,21 +4,15 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
-        <!-- Splash Screen Launcher -->
+        <!-- Direct Main Launcher -->
         <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@android:style/Theme.Material.NoTitleBar.Fullscreen">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Main Screen -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
 
     </application>
 </manifest>
