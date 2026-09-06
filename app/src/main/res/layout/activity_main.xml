@@ -1,44 +1,43 @@
-<!-- Continuous Feed Layout inside ScrollView -->
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="#0A0F0D">
 
-    <!-- 1. Long Video -->
-    <include layout="@layout/item_long_video" />
+    <!-- Top Bar Include -->
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar" />
 
-    <!-- 2. Long Video -->
-    <include layout="@layout/item_long_video" />
-
-    <!-- 3. Shorts Carousel -->
-    <HorizontalScrollView
+    <!-- Refresh Container -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
-            <include layout="@layout/item_shorts_card" />
-            <include layout="@layout/item_shorts_card" />
-            <include layout="@layout/item_shorts_card" />
-        </LinearLayout>
-    </HorizontalScrollView>
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar">
 
-    <!-- 4. Long Video -->
-    <include layout="@layout/item_long_video" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <!-- 5. Community Post Card -->
-    <include layout="@layout/item_post_card" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <!-- 6. Long Video -->
-    <include layout="@layout/item_long_video" />
+                <include layout="@layout/item_long_video" />
 
-    <!-- 7. Sponsored Ad Card -->
-    <include layout="@layout/item_ad_card" />
+                <include layout="@layout/item_long_video" />
 
-    <!-- 8. Long Video -->
-    <include layout="@layout/item_long_video" />
+                <include layout="@layout/item_post_card" />
 
-</LinearLayout>
+                <include layout="@layout/item_long_video" />
+
+                <include layout="@layout/item_ad_card" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
+            
