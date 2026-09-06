@@ -1,0 +1,16 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.farukh.islamtube'
+    compileSdk 34
+    
+    defaultConfig {
+        applicationId "com.farukh.islamtube"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+}
